@@ -1,42 +1,131 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #0e0e0e;
+  color: #ffffff;
+}
+
+h3, h4 {
+  text-align: center;
+  margin: 20px 0;
+}
+
+input[type="text"] {
+  padding: 8px;
+  width: 250px;
+  border-radius: 4px;
+  border: 1px solid #555;
+  background: #1e1e1e;
+  color: white;
+}
+
+button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #5cd65c;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+table {
+  width: 50%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #333;
+  padding: 12px;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+th {
+  background-color: #1f2937;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+tr:nth-child(even) {
+  background-color: #111827;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+tr:hover {
+  background-color: #374151;
 }
 
-.card {
-  padding: 2em;
+input[name] {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  background: #1e1e1e;
+  border: 1px solid #555;
+  color: white;
+  border-radius: 4px;
 }
 
-.read-the-docs {
-  color: #888;
+button[type="submit"], .save-button {
+  display: block;
+  width: 100%;
+  background: #22c55e;
+  margin-top: 15px;
+}
+
+button[type="submit"]:hover, .save-button:hover {
+  background: #16a34a;
+}
+
+.container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.form-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.contact-form {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.form-field {
+  margin-bottom: 15px;
+  padding: 0;
+}
+
+.form-field input {
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.contact-form input[name] {
+  width: 100%;
+  box-sizing: border-box;
 }

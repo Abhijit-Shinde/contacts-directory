@@ -2,10 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ContactsAPI.DBContext;
+using ContactsAPI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,6 +30,10 @@ namespace ContactsAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddTransient<IContactService, ContactService>();
+            services.AddDbContext<ContactsContext>(options =>
+                options.UseInMemoryDatabase("ContactsDb"));
+
 
             services.AddSwaggerGen(c =>
             {
@@ -43,6 +50,16 @@ namespace ContactsAPI
                     },
                 });
             });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +68,12 @@ namespace ContactsAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<ContactsContext>();
+                context.Database.EnsureCreated();
             }
 
             app.UseSwagger();
@@ -63,11 +86,13 @@ namespace ContactsAPI
 
                 // To serve SwaggerUI at application's root page, set the RoutePrefix property to an empty string.
                 c.RoutePrefix = string.Empty;
+                c.ConfigObject.AdditionalItems["https"] = true;
             });
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors("AllowAll");
 
             app.UseAuthorization();
 
